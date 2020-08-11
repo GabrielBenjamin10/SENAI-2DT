@@ -20,7 +20,7 @@ SELECT * FROM TipoDePet;
 -- Inserindo Dados Iniciais
 
 INSERT INTO Dono
-(Nome) VALUES ('Gabriel'), ('Miguel');
+(Nome) VALUES ('Gabriel')
 
 INSERT INTO Veterinario
 (Nome,CRV) VALUES ('João', '5547839'), ('Maria','67478859');
@@ -35,7 +35,7 @@ INSERT INTO TipoDePet
 (TipoPet) VALUES ('Cachorro');
 
 INSERT INTO Atendimento
-(Descricao,IdVeterinario,IdDono) VALUES ('Cirurgia' , '2','2');
+(Descricao,IdVeterinario,IdDono,IdPet) VALUES ('Consulta' , '1','1','1');
 
 INSERT INTO Clinica
 (Nome, Rua,CEP,Numero) VALUES ('Estima Animal' , ' Rua 06', '0994882889' , '856');
@@ -46,9 +46,9 @@ INSERT INTO Clinica
 
 
 -- Excluir Dado = DELETE
--- Exclua de Dono , onde que IdDono for igual a 2;
+-- Exclua de Dono , onde que IdDono for igual a 4;
 
-DELETE FROM Dono WHERE Nome='Gustavo';
+DELETE FROM Dono WHERE IdDono='4';   --ERRO RESOLVIDO
 
 --Adicionar DADOS faltantes
 
@@ -57,7 +57,7 @@ IdClinica = '1'
 WHERE IdVeterinario = '2';
 
 UPDATE Pet SET
-IdDono = '2'
+IdDono = '3'
 WHERE IdPet = '2';
 
 UPDATE Pet SET
@@ -67,6 +67,12 @@ WHERE IdPet = '2';
 UPDATE Pet SET
 IdTipoPet = '1'
 WHERE IdPet = '2';
+
+UPDATE Atendimento SET
+IdPet ='2'
+WHERE IdDono = '3';
+
+
 
 
 
