@@ -6,17 +6,11 @@ using System.Threading.Tasks;
 
 namespace AulaSENAI.EFCORE.Domains
 {
-    public class Pedido
+    public class Pedido:BaseDomain
     {
-        [Key]
-        public Guid Id { get; set; }
+
         public string Status { get; set; }
         public DateTime OrderDate { get; set; }
 
-
-        Pedido()
-        {
-            Id = Guid.NewGuid();
-        }
     }
 }

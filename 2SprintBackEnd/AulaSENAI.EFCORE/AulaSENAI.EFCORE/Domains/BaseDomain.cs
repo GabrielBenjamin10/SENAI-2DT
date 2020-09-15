@@ -6,13 +6,16 @@ using System.Threading.Tasks;
 
 namespace AulaSENAI.EFCORE.Domains
 {
-    public class Produto:BaseDomain
+    public abstract class BaseDomain
     {
-      
-        public string Nome { get; set; }
-        public float Preco { get; set; }
+        [Key]
+       public Guid Id { get; set; }
 
-        
-
+        public BaseDomain()
+        {
+            Id = Guid.NewGuid();
+        }
     }
+
+    
 }

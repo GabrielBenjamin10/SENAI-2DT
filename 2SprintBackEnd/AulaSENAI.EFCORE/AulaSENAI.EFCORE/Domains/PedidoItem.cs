@@ -7,10 +7,9 @@ using System.Threading.Tasks;
 
 namespace AulaSENAI.EFCORE.Domains
 {
-    public class PedidoItem
+    public class PedidoItem:BaseDomain
     {
-        [Key]
-        public Guid Id { get; set; }
+       
         public Guid IdPedido { get; set; }
         [ForeignKey("IdPedido")]
         public Pedido Pedido { get; set; }
@@ -19,14 +18,10 @@ namespace AulaSENAI.EFCORE.Domains
         [ForeignKey("IdProduto")]
         public Produto Produto { get; set; }
 
-
         [Required]
         public int Quantidade { get; set; }
 
 
-        public PedidoItem()
-        {
-            Id = Guid.NewGuid();
-        }
+        
     }
 }
