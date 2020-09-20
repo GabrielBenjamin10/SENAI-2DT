@@ -11,6 +11,8 @@ namespace AulaSENAI.EFCORE.Domains
 
         public string Status { get; set; }
         public DateTime OrderDate { get; set; }
+        public List<PedidoItem> PedidosItens { get; set; }
+        public List<PedidoItem> PedidoItem { get; internal set; }
 
     }
 }
