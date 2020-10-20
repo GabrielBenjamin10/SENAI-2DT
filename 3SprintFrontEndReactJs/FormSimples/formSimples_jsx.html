@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React JSX</title>
+</head>
+<body>
+    <div id="form"></div>
+
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.min.js" integrity="sha512-kp7YHLxuJDJcOzStgd6vtpxr4ZU9kjn77e6dBsivSz+pUuAuMlE2UTdKB7jjsWT84qbS8kdCWHPETnP/ctrFsA==" crossorigin="anonymous"></script>
+
+    <script type="text/babel">//Chamando o Babel para transpilar
+
+        ReactDOM.render(
+
+            //O que eu quero renderizar? 1 PARAMETRO
+            <div>
+                <h1>Login</h1>
+                <input type="email" placeholder='Digite seu email' required />
+                <input type="password" placeholder='Digite sua senha' required />
+                <button type="submit" style={{background : 'blue'}} >Entrar</button>
+            </div>,
+
+            //Onde eu quero renderizar? 2 PARAMETRO 
+            document.querySelector('#form')
+
+        );
+
+        
+    </script>
+
+</body>
+</html>
