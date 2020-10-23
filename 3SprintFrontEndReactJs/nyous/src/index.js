@@ -5,13 +5,12 @@ import './index.css';
 import Home from './pages/home';
 import * as serviceWorker from './serviceWorker';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
-const routing = (
-  <Router></Router>
-)
 
 ReactDOM.render(
+  <React.StrictMode>	  
+     <Home />	    
+  </React.StrictMode>,
   document.getElementById('root')
 );
 

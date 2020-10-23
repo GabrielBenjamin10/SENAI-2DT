@@ -4,13 +4,11 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Api_ORM.Domains
+namespace EFCore.Domains
 {
+    // abstract serve para uam questão de sugurança, fazendo com que a classe n poderá ser instanciada sozinha
     public abstract class BaseDomain
     {
-        /// <summary>
-        /// Define a classe Produto
-        /// </summary>
         [Key]
         public Guid Id { get; private set; }
 
@@ -18,5 +16,6 @@ namespace Api_ORM.Domains
         {
             Id = Guid.NewGuid();
         }
+
     }
 }

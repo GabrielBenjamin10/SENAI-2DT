@@ -1,19 +1,21 @@
 using System;
 using System.Reflection;
 using System.IO;
+using Microsoft.OpenApi.Models;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.OpenApi.Models;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 
-namespace Api_ORM
+namespace EFCore
 {
     public class Startup
     {
@@ -31,8 +33,7 @@ namespace Api_ORM
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
                 options.SerializerSettings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;
             });
-
-            // adicionamos o metedo necessario para a criação do swagger na aplicação
+            // Adicionamos o metodo necessario para a criação do swagger na aplicação
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo
@@ -43,9 +44,9 @@ namespace Api_ORM
                     TermsOfService = new Uri("https://example.com/terms"),
                     Contact = new OpenApiContact
                     {
-                        Name = "Fernando Araujo",
-                        Email = "fernandocaraujo@email.com",
-                        Url = new Uri("https://twitter.com/FeAraujo"),
+                        Name = "Kaua Deja",
+                        Email = "kaua@gmail.com",
+                        Url = new Uri("https://twitter.com/KauaDeja"),
                     },
                     License = new OpenApiLicense
                     {
@@ -53,13 +54,11 @@ namespace Api_ORM
                         Url = new Uri("https://example.com/license"),
                     }
                 });
-
-                // geração dos comentarios em xml da documentação dos metodos
+                // Gera os comentários em XML da documentação dos métodos
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 c.IncludeXmlComments(xmlPath);
             });
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -70,19 +69,21 @@ namespace Api_ORM
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseHttpsRedirection();
+
             app.UseRouting();
 
             app.UseAuthorization();
 
+            // configura nossa api para rodar arquivos estaticos
             app.UseStaticFiles();
 
-            // usamos efetivamente o swagger
+            // Usamos efeivamente o swagger
             app.UseSwagger();
-
-            // definindo endpoint  e o nome da versão
+            // Definimos o endpoint e o nome da versão
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My Loja V1");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "API Loja V1");
             });
 
             app.UseEndpoints(endpoints =>

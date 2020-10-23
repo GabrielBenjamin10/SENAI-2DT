@@ -2,7 +2,7 @@ import React from 'react';
 import Menu from '../../components/menu';
 import Rodape from '../../components/rodape';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {Carousel, Jumbotron, Button, Container, Row, Col, Card} from 'react-bootstrap';
+import {Carousel, Jumbotron, Button} from 'react-bootstrap';
 
 const Home = () => {
     return(

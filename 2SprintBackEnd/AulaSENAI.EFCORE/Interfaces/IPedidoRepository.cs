@@ -1,22 +1,21 @@
-﻿using Api_ORM.Domains;
+﻿using EFCore.Domains;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Api_ORM.Interfaces
+namespace EFCore.Interfaces
 {
-    public interface IPedidoRepository
+    interface IPedidoRepository
     {
-        List<Pedido> Listar();
+        List<Pedido> LerTodos();
         Pedido BuscarPorId(Guid id);
         /// <summary>
-        /// adiciona um novo pedido
+        /// Adiciona um novo pedido
         /// </summary>
-        /// <param name="pedidoItems">itens do pedido</param>
+        /// <param name="pedidosItens">itens do pedido</param>
         /// <returns>Pedido</returns>
-        Pedido Adicionar(List<PedidoItem> pedidoItems);
-
-
+        Pedido Cadastrar(List<PedidoItem> pedidosItens);
     }
 }
+    

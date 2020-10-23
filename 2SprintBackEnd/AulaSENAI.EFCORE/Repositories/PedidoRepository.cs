@@ -1,63 +1,32 @@
-﻿using Api_ORM.Contexts;
-using Api_ORM.Domains;
-using Api_ORM.Interfaces;
+﻿using EFCore.Context;
+using EFCore.Domains;
+using EFCore.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Api_ORM.Repositories
+namespace EFCore.Repositories
 {
     public class PedidoRepository : IPedidoRepository
     {
-        private readonly PedidoContext _ctx;
+        private readonly PedidoContext cont;
+
+        // Instanciei o meu repositorio
         public PedidoRepository()
         {
-            _ctx = new PedidoContext();
+            cont = new PedidoContext();
         }
-        public Pedido Adicionar(List<PedidoItem> pedidoItems)
-        {
-            try
-            {
-                // criando objeto pedido passando os valores
-                Pedido pedido = new Pedido
-                {
-                    Status = "Pedido efetuado",
-                    OrderDate = DateTime.Now,
-                    PedidoItem = new List<PedidoItem>()
-                };
-
-                //percorre a lista de pedidoItems e adiciona a lista de pedidosItems
-                foreach(var item in pedidoItems)
-                {
-                    // adiciona um pedidoItem
-                    pedido.PedidosItens.Add(new PedidoItem
-                    {
-                        IdPedido    = pedido.Id, //id do objeto acabou de ser criado acima
-                        IdProduto   = item.Id,
-                        Quantidade  = item.Quantidade
-                    });
-                }
-
-                _ctx.Pedido.Add(pedido);
-                _ctx.SaveChanges();
-
-                return pedido;
-
-            }
-
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
-        }
-
         public Pedido BuscarPorId(Guid id)
         {
             try
             {
-                return _ctx.Pedido.Include(f => f.PedidoItem).ThenInclude(d => d.Produto).FirstOrDefault(p => p.Id == id);
+                return cont.Pedidos
+                    // Inner join
+                    .Include(c => c.PedidosItens)
+                    .ThenInclude(c =>c.Produto)
+                    .FirstOrDefault(p =>p.Id == id); 
             }
             catch (Exception ex)
             {
@@ -66,11 +35,48 @@ namespace Api_ORM.Repositories
             }
         }
 
-        public List<Pedido> Listar()
+        public Pedido Cadastrar(List<PedidoItem> pedidosItens)
         {
             try
             {
-                return _ctx.Pedido.ToList();
+                // Criação dos obj do tipo pedido e com a chaves nos permite acessar suas propriedades passando seus valores
+                Pedido pedido = new Pedido
+                {
+                    Status = "Pedido Efetuado",
+                    OrderDate = DateTime.Now
+                    //PedidosItens = new List<PedidoItem>()
+                };
+
+                // percorre a lista de pedidosItens e adiciona a lista de pedidositens
+                foreach (var item in pedidosItens)
+                {
+                    //Adiciona um pedidoitem na lista
+                    pedido.PedidosItens.Add(new PedidoItem
+                    {
+                        IdPedido = pedido.Id, // Id do obj pedido criado acima
+                        IdProduto = item.IdProduto,
+                        Quantidade = item.Quantidade
+                    }) ;
+                }
+                // adiciono o pedido ao meu contexto
+                cont.Pedidos.Add(pedido);
+                //salva as alterações no contexto no banco de dados
+                cont.SaveChanges();
+
+                return pedido;
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public List<Pedido> LerTodos()
+        {
+            try
+            {
+                return cont.Pedidos.ToList();
             }
             catch (Exception ex)
             {

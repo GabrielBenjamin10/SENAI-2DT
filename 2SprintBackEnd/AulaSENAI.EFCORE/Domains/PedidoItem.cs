@@ -5,20 +5,23 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Api_ORM.Domains
+namespace EFCore.Domains
 {
     public class PedidoItem : BaseDomain
-    {
+    {  
+        //Fazer relacionamento da fk
         public Guid IdPedido { get; set; }
-        [ForeignKey("IdPedido")]
-        public Pedido Pedido { get; set; }
+        [ForeignKey ("IdPedido")]
+        public Pedido Pedido{ get; set; }
 
-        public Guid IdProduto { get; set; }
-        [ForeignKey("IdProduto")]
+        //Fazer relacionamento da fk
+        public Guid IdProduto  { get; set; }
+        [ForeignKey ("IdProduto")]
         public Produto Produto { get; set; }
 
         [Required]
         public int Quantidade { get; set; }
 
+        //  Criamos o construtor
     }
 }

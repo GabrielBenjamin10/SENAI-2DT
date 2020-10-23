@@ -7,11 +7,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace Api_ORM
+namespace EFCore
 {
-#pragma warning disable CS1591
     public class Program
     {
+#pragma warning disable CS1591
         public static void Main(string[] args)
         {
             CreateHostBuilder(args).Build().Run();

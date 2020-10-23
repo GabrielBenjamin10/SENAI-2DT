@@ -1,18 +1,26 @@
-﻿using Api_ORM.Domains;
+﻿using EFCore.Domains;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Api_ORM.Interfaces
+namespace EFCore.Interfaces
 {
-    public interface IProdutoRepository
+    interface IProdutoRepository
     {
-        List<Produto> Listar();
+        // Interface assina meu contrato
+        List<Produto> LerTodos();
+
         Produto BuscarPorId(Guid id);
-        void Adicionar(Produto produto);
-        List<Produto> BuscarPorNome(string nome);
-        void Editar(Produto produto);
-        void Remover(Guid id);
+
+       List<Produto> BuscarporNome(string nome);
+
+        void Cadastrar(Produto produto);
+
+        void Alterar(Produto produto);
+
+        void Excluir(Guid id);
+
+
     }
 }

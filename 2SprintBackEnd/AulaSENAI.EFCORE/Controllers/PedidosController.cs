@@ -2,19 +2,18 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Api_ORM.Domains;
-using Api_ORM.Interfaces;
-using Api_ORM.Repositories;
+using EFCore.Domains;
+using EFCore.Interfaces;
+using EFCore.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Api_ORM.Controllers
+namespace EFCore.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class PedidosController : ControllerBase
     {
-
         private readonly IPedidoRepository _pedidoRepository;
 
         public PedidosController()
@@ -23,17 +22,18 @@ namespace Api_ORM.Controllers
         }
 
         [HttpPost]
-        public IActionResult Post(List<PedidoItem> pedidoItems)
+        public IActionResult Post(List<PedidoItem> pedidosItens)
         {
             try
             {
-                Pedido pedido = _pedidoRepository.Adicionar(pedidoItems);
+                //Adicona um pedido
+                Pedido pedido = _pedidoRepository.Cadastrar(pedidosItens);
                 return Ok(pedido);
-
             }
             catch (System.Exception ex)
             {
-                throw new Exception(ex.Message);
+
+                return BadRequest(ex.Message);
             }
         }
 
@@ -42,37 +42,35 @@ namespace Api_ORM.Controllers
         {
             try
             {
-                var pedido = _pedidoRepository.Listar();
+                var pedidos = _pedidoRepository.LerTodos();
 
-                if (pedido.Count == 0)
+                if (pedidos.Count == 0)
                     return NoContent();
 
-                return Ok(pedido);
-
+                return Ok(pedidos);
             }
             catch (System.Exception ex)
             {
-                throw new Exception(ex.Message);
+
+                return BadRequest(ex.Message);
             }
-
         }
-
         [HttpGet("{id}")]
         public IActionResult GetById(Guid id)
         {
             try
             {
-                var pedido = _pedidoRepository.BuscarPorId(id);
+                var pedidos = _pedidoRepository.BuscarPorId(id);
 
-                if (pedido == null)
+                if (pedidos == null)
                     return NotFound();
 
-                return Ok(pedido);
-
+                return Ok(pedidos);
             }
             catch (System.Exception ex)
             {
-                throw new Exception(ex.Message);
+
+                return BadRequest(ex.Message);
             }
         }
     }

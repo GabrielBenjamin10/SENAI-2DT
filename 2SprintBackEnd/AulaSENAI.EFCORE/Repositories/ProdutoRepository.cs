@@ -1,67 +1,71 @@
-﻿using Api_ORM.Contexts;
-using Api_ORM.Domains;
-using Api_ORM.Interfaces;
+﻿using EFCore.Context;
+using EFCore.Domains;
+using EFCore.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Api_ORM.Repositories
+namespace EFCore.Repositories
 {
     public class ProdutoRepository : IProdutoRepository
     {
-
-        private readonly PedidoContext _ctx;
-
+        // readonly significa somente leitura, sem alterações
+        // uso do encapsulamento
+        private readonly PedidoContext cont;
         public ProdutoRepository()
         {
-            _ctx = new PedidoContext();
+            cont = new PedidoContext();
         }
-
+        // ctor é um atalho para criar um metodo construtor
+        // Region é um comando de organização dos codigos
         #region Leitura
         /// <summary>
         /// Lista todos os produtos cadastrados
         /// </summary>
         /// <returns>Retorna uma lista de produtos</returns>
-        public List<Produto> Listar()
+        public List<Produto> LerTodos()
         {
             try
             {
-                return _ctx.Produto.ToList();
+                return cont.Produtos.ToList();
             }
             catch (Exception ex)
             {
+
                 throw new Exception(ex.Message);
             }
         }
-
         /// <summary>
-        /// busca um produto pelo seu Id
+        /// Busca um produto pelo Id
         /// </summary>
-        /// <param name="id">Id produto</param>
-        /// <returns>Lista de produto</returns>
+        /// <param name="id">Id do produto</param>
+        /// <returns></returns>
         public Produto BuscarPorId(Guid id)
         {
             try
             {
-                return _ctx.Produto.Find(id);
+                //return cont.Produtos.FirstOrDefault(c => c.Id == id);
+                return cont.Produtos.Find(id);
+
             }
             catch (Exception ex)
             {
+
                 throw new Exception(ex.Message);
             }
         }
-
         /// <summary>
-        /// busca um produto pelo nome
+        /// Busca os produtos pelo nome
         /// </summary>
-        /// <param name="nome">nome produto</param>
-        /// <returns>Retorna produto</returns>
-        public List<Produto> BuscarPorNome(string nome)
+        /// <param name="nome">Nome do produto</param>
+        /// <returns>retorna um produto</returns>
+        public List<Produto> BuscarporNome(string nome)
         {
             try
             {
-                return _ctx.Produto.Where(f => f.Nome.Contains(nome)).ToList();
+                // Contains == WHERE
+                return cont.Produtos.Where(c => c.Nome.Contains(nome)).ToList();
             }
             catch (Exception ex)
             {
@@ -69,83 +73,59 @@ namespace Api_ORM.Repositories
                 throw new Exception(ex.Message);
             }
         }
+        
         #endregion
 
-        #region Gravação
         /// <summary>
-        /// Adiciona um novo produto
+        /// ADICIONA UM NOVO PRODUTO
         /// </summary>
-        /// <param name="produto">objeto do tipo Produto</param>
-        public void Adicionar(Produto produto)
+        /// <param name="produto">objeto do tipo produto</param>
+        #region Gravação
+        public void Cadastrar(Produto produto)
         {
-            try 
+            // try - tente
+            // catch - excessão
+            // Try catch é um tipo de tratativa para o nosso erro
+            try
             {
-                //Adiciona no objeto ao DbSet
-                _ctx.Produto.Add(produto);
+                //Adiciona objeto do tipo produto ao dbset do contexto
+                cont.Produtos.Add(produto);
+                //_ctx.Set<Produto>().Add(produto);
+                //_ctx.Entry(produto).State = Microsoft.EntityFrameworkCore.EntityState.Added;
 
-                //Salva alterações do contexto
-                _ctx.SaveChanges();
+                //Salva as alterações no contexto
+                cont.SaveChanges();
             }
             catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }
         }
-
         /// <summary>
-        /// Edita um produto
+        /// Edita um prioduto
         /// </summary>
-        /// <param name="produto">produto que vai ser alterado</param>
-        public void Editar(Produto produto)
+        /// <param name="produto">produto a ser editado</param>
+        public void Alterar(Produto produto)
         {
             try
             {
-                //Buscar produto por id
+                //Produto prodtuoTemp = cont.Produtos.Find(produto.Id);
+                // Buscar produto pelo ID
                 Produto produtoTemp = BuscarPorId(produto.Id);
 
-                //verifica se o produto existe
-                //caso não existe gera uma exceção
-                if(produtoTemp == null)
-                {
-                   throw new Exception("Produto não encontrado");
-                }
-
-                //caso exista, sltera suas propriedades
-                produtoTemp.Nome = produto.Nome;
-                produtoTemp.Preco = produto.Preco;
-
-                //altera produto no contexto
-                _ctx.Produto.Update(produtoTemp);
-
-                //salva o contexto
-                _ctx.SaveChanges();
-
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
-        }
-
-        /// <summary>
-        /// remove um produto pelo seu id
-        /// </summary>
-        /// <param name="id">id do produto</param>
-        public void Remover(Guid id)
-        {
-            try
-            {
-                //Buscar produto por id
-                Produto produtoTemp = BuscarPorId(id);
-
-                //verifica se o produto existe
-                //caso não existe gera uma exceção
+                // verifica se o produto existe
+                // Caso não gera um ex
                 if (produtoTemp == null)
                     throw new Exception("Produto não encontrado");
 
-                _ctx.Produto.Remove(produtoTemp);
+                // Caso exista altera
+                produtoTemp.Nome = produto.Nome;
+                produtoTemp.Preco = produto.Preco;
 
-                _ctx.SaveChanges();
+                // Altera os produtos no context
+                cont.Produtos.Update(produtoTemp);
+                //Salva o contexto
+                cont.SaveChanges();
             }
             catch (Exception ex)
             {
@@ -153,6 +133,37 @@ namespace Api_ORM.Repositories
                 throw new Exception(ex.Message);
             }
         }
+        /// <summary>
+        /// Remove um produto
+        /// </summary>
+        /// <param name="id">id do produto</param>
+        public void Excluir(Guid id)
+        {
+            try
+            {
+                //Produto prodtuoTemp = cont.Produtos.Find(produto.Id);
+                // Buscar produto pelo ID
+                Produto prodtuoTemp = BuscarPorId(id);
+
+                // verifica se o produto existe
+                // Caso não gera um ex
+                if (prodtuoTemp == null)
+                    throw new Exception("Produto não encontrado");
+
+                // Remove os produtos do dbset
+                cont.Produtos.Remove(prodtuoTemp);
+                // salva as alterações do contexto
+                cont.SaveChanges();
+
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
         #endregion
+
+
     }
 }

@@ -1,0 +1,93 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>EFCore</name>
+    </assembly>
+    <members>
+        <member name="T:EFCore.Domains.Produto">
+            <summary>
+            Define a classe produto
+            </summary>
+        </member>
+        <member name="M:EFCore.Interfaces.IPedidoRepository.Cadastrar(System.Collections.Generic.List{EFCore.Domains.PedidoItem})">
+            <summary>
+            Adiciona um novo pedido
+            </summary>
+            <param name="pedidosItens">itens do pedido</param>
+            <returns>Pedido</returns>
+        </member>
+        <member name="M:EFCore.Repositories.ProdutoRepository.LerTodos">
+            <summary>
+            Lista todos os produtos cadastrados
+            </summary>
+            <returns>Retorna uma lista de produtos</returns>
+        </member>
+        <member name="M:EFCore.Repositories.ProdutoRepository.BuscarPorId(System.Guid)">
+            <summary>
+            Busca um produto pelo Id
+            </summary>
+            <param name="id">Id do produto</param>
+            <returns></returns>
+        </member>
+        <member name="M:EFCore.Repositories.ProdutoRepository.BuscarporNome(System.String)">
+            <summary>
+            Busca os produtos pelo nome
+            </summary>
+            <param name="nome">Nome do produto</param>
+            <returns>retorna um produto</returns>
+        </member>
+        <member name="M:EFCore.Repositories.ProdutoRepository.Cadastrar(EFCore.Domains.Produto)">
+            <summary>
+            ADICIONA UM NOVO PRODUTO
+            </summary>
+            <param name="produto">objeto do tipo produto</param>
+        </member>
+        <member name="M:EFCore.Repositories.ProdutoRepository.Alterar(EFCore.Domains.Produto)">
+            <summary>
+            Edita um prioduto
+            </summary>
+            <param name="produto">produto a ser editado</param>
+        </member>
+        <member name="M:EFCore.Repositories.ProdutoRepository.Excluir(System.Guid)">
+            <summary>
+            Remove um produto
+            </summary>
+            <param name="id">id do produto</param>
+        </member>
+        <member name="M:Senai.EfCore.Tarde.Controllers.ProdutosController.Get">
+            <summary>
+            Mostra todos os produtos cadastrados
+            </summary>
+            <returns>Lista com todos os produtos</returns>
+        </member>
+        <member name="M:Senai.EfCore.Tarde.Controllers.ProdutosController.Get(System.Guid)">
+            <summary>
+            Mostra um unico produto especifico
+            </summary>
+            <param name="id">id do produto</param>
+            <returns> um produto </returns>
+        </member>
+        <member name="M:Senai.EfCore.Tarde.Controllers.ProdutosController.Post(EFCore.Domains.Produto)">
+            <summary>
+            Cadastra um produto
+            </summary>
+            <param name="produto">Objeto completo de Produto</param>
+            <returns>  O produto cadastrado</returns>
+        </member>
+        <member name="M:Senai.EfCore.Tarde.Controllers.ProdutosController.Put(System.Guid,EFCore.Domains.Produto)">
+            <summary>
+            Altera determinado produto
+            </summary>
+            <param name="id">id do produto</param>
+            <param name="produto">Objeto completo de produto</param>
+            <returns> Produto alterado</returns>
+        </member>
+        <member name="M:Senai.EfCore.Tarde.Controllers.ProdutosController.Delete(System.Guid)">
+            <summary>
+            Exclui um produto
+            </summary>
+            <param name="id">id do produto</param>
+            <returns>Produto excluido</returns>
+        </member>
+    </members>
+</doc>
