@@ -2,7 +2,7 @@ import React from 'react';
 import Menu from '../../components/menu';
 import Rodape from '../../components/rodape';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {Carousel, Jumbotron, Button} from 'react-bootstrap';
+import {Carousel, Jumbotron, Button, Container, Row, Col,Card} from 'react-bootstrap';
 
 const Home = () => {
     return(
@@ -29,6 +29,46 @@ const Home = () => {
                 <p>Encontre eventos nos mais diversos segmentos de forma rápida</p>
                 <p><Button variant="primary" href="/login">Login</Button><Button variant="btn btn-success" style={{marginLeft : '10px'}} href="/cadastrar">Cadastrar</Button></p>
             </Jumbotron>
+            <Container>
+                <Row>
+                    <Col>
+                        <Card style={{ width : '18rem' }}>
+                            <Card.Img variant="top" src="https://educador360.com/wp-content/uploads/2018/05/tipos-de-alunos-thumb-recuperado.jpg"></Card.Img>
+                            <Card.Body>
+                                <Card.Title>Inovação</Card.Title>
+                                <Card.Text>
+                                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Cupiditate, quos? Eaque, cum illum impedit pariatur iure temporibu
+                                </Card.Text>
+                                <Button variant="primary">Go somewhere</Button>
+                            </Card.Body>
+                        </Card>
+                    </Col>
+                    <Col>
+                        <Card style={{ width : '18rem' }}>
+                            <Card.Img variant="top" src="https://educador360.com/wp-content/uploads/2018/05/tipos-de-alunos-thumb-recuperado.jpg"></Card.Img>
+                            <Card.Body>
+                                <Card.Title>Educação</Card.Title>
+                                <Card.Text>
+                                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Cupiditate, quos? Eaque, cum illum impedit pariatur iure temporibu
+                                </Card.Text>
+                                <Button variant="primary">Go somewhere</Button>
+                            </Card.Body>
+                        </Card>
+                    </Col>
+                    <Col>
+                        <Card style={{ width : '18rem' }}>
+                            <Card.Img variant="top" src="https://educador360.com/wp-content/uploads/2018/05/tipos-de-alunos-thumb-recuperado.jpg"></Card.Img>
+                            <Card.Body>
+                                <Card.Title>Desenvolvimento</Card.Title>
+                                <Card.Text>
+                                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Cupiditate, quos? Eaque, cum illum impedit pariatur iure temporibu
+                                </Card.Text>
+                                <Button variant="primary">Go somewhere</Button>
+                            </Card.Body>
+                        </Card>
+                     </Col>
+                </Row>
+            </Container>
 
             <Rodape />
         </div>
